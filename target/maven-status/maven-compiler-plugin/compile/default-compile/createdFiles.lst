@@ -1,0 +1,5 @@
+com\example\moviechatbot\CustomUserDetailsService.class
+com\example\moviechatbot\ChatController$Movie.class
+com\example\moviechatbot\ChatController.class
+com\example\moviechatbot\MovieChatbotApplication.class
+com\example\moviechatbot\SecurityConfig.class

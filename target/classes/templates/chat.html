@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Movie Recommendation Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        .chat-box {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .message {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            align-self: flex-start;
+            max-width: 80%;
+        }
+        .user-input {
+            background: #e1e1e1;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            align-self: flex-end;
+            max-width: 80%;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .genres {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .genres a {
+            margin: 0 5px;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .genres a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommendation Chatbot</h1>
+        <div style="margin-bottom: 20px;">
+            <a href="/profile" style="margin-right: 10px;">Profile</a>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit" style="background: none; border: none; color: #667eea; cursor: pointer; text-decoration: underline;">Logout</button>
+            </form>
+        </div>
+        <div class="chat-box">
+            <div th:each="msg : ${messages}" class="message" th:classappend="${msg.startsWith('You:')} ? 'user-input' : 'message'">
+                <span th:text="${msg}"></span>
+            </div>
+        </div>
+        <form action="/recommend" method="post">
+            <input type="text" name="input" placeholder="Enter genre or movie (e.g., action, comedy)" required>
+            <button type="submit">Get Recommendation</button>
+        </form>
+        <div class="genres">
+            Popular genres: <a href="#" onclick="setGenre('action')">Action</a> | <a href="#" onclick="setGenre('comedy')">Comedy</a> | <a href="#" onclick="setGenre('drama')">Drama</a> | <a href="#" onclick="setGenre('horror')">Horror</a> | <a href="#" onclick="setGenre('sci-fi')">Sci-Fi</a>
+        </div>
+    </div>
+    <script>
+        function setGenre(genre) {
+            document.querySelector('input[name="input"]').value = genre;
+        }
+    </script>
+</body>
+</html>
